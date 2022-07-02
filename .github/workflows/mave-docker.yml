@@ -50,11 +50,11 @@ jobs:
 
     - run: mkdir -p target/
 
-    - run: echo hello > target/de-sy-file.jar
+    - run: echo hello > target/products-service-example.jar
 
     - uses: actions/upload-artifact@v1
       with:
-       name: de-sy-file
+       name: products-service-example
        path: target/
 
   deploy:
@@ -71,10 +71,10 @@ jobs:
 
     - uses: actions/download-artifact@v1
       with:
-          name: de-sy-file
+          name: products-service-example
           path: target/
 
-    - run: cat target/de-sy-file.jar
+    - run: cat target/products-service-example.jar
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
