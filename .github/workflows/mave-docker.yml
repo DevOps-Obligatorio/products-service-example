@@ -50,11 +50,11 @@ jobs:
 
     - run: mkdir -p target/
 
-    - run: echo hello > target/products-service-example.jar
+    - run: echo hello > target/app.jar
 
     - uses: actions/upload-artifact@v1
       with:
-       name: products-service-example
+       name: app
        path: target/
 
   deploy:
@@ -74,7 +74,7 @@ jobs:
           name: products-service-example
           path: target/
 
-    - run: cat target/products-service-example.jar
+    - run: cat target/app.jar
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -97,6 +97,6 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build --build-arg JAR_FILE=products-service-example.jar -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
