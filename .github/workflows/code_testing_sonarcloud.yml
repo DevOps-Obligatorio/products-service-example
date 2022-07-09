@@ -1,4 +1,4 @@
-name: testing_code
+name: Testing_code
 on:
   push:
     branches:
